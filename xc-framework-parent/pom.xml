@@ -43,10 +43,10 @@
         <dependencies>
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Finchley.SR1</version>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <!--<version>Finchley.SR1</version>
                 <type>pom</type>
-                <scope>import</scope>
+                <scope>import</scope>-->
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>
@@ -170,10 +170,10 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--<plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 
