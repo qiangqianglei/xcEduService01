@@ -2,3 +2,6 @@
 *.iml
 target/
 target
+/xc-service-api/src/main/*.iml
+/xc-framework-model/*.iml
+/xc-framework-model/src/main/*.iml
