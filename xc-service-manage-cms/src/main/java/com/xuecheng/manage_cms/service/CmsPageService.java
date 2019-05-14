@@ -6,10 +6,9 @@ import com.xuecheng.framework.model.response.CommonCode;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.QueryResult;
 import com.xuecheng.manage_cms.dao.CmsPageRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,15 +18,31 @@ public class CmsPageService {
     private CmsPageRepository cmsPageRepository;
 
     public QueryResponseResult findList( int page,  int size, QueryPageRequest queryPageRequest) {
-        if(page <= 0){
-            page = 1;
+
+        CmsPage cmsPage = new CmsPage();
+        //条件匹配器,页面别名模糊匹配
+        ExampleMatcher matcher = ExampleMatcher.matching().withMatcher("pageAliase",ExampleMatcher.GenericPropertyMatchers.contains());
+        //站点ID
+        if(StringUtils.isNotEmpty(queryPageRequest.getSiteId())){
+            cmsPage.setSiteId(queryPageRequest.getSiteId());
         }
+        //模板ID
+        if(StringUtils.isNotEmpty(queryPageRequest.getTemplateId())){
+            cmsPage.setTemplateId(queryPageRequest.getTemplateId());
+        }
+        //页面别名
+        if(StringUtils.isNotEmpty(queryPageRequest.getPageAliase())){
+            cmsPage.setPageAliase(queryPageRequest.getPageAliase());
+        }
+
         page = page -1; //为了适应MongoDB的接口将页码-1
         if(size < 0){
             size = 10;
         }
         Pageable pageable = new PageRequest(page,size);
-        Page<CmsPage> all = cmsPageRepository.findAll(pageable);
+        //创建条件实例
+        Example<CmsPage> example = Example.of(cmsPage, matcher);
+        Page<CmsPage> all = cmsPageRepository.findAll(example,pageable);
 
         QueryResult<CmsPage> queryResult = new QueryResult<CmsPage>();
         queryResult.setList(all.getContent());
