@@ -17,6 +17,9 @@ public enum CommonCode implements ResultCode{
     INVALIDPARAM(false,10003,"非法参数"),
     UNAUTHENTICATED(false,10001,"此操作需要登陆系统！"),
     UNAUTHORISE(false,10002,"权限不足，无权操作！"),
+
+    CMS_GENERATEHTML_DATAURLISNULL(false,10006,"静态化数据模型的dataurl为空!"),
+    CMS_GENERATEHTML_DATAISNULL(false,10007,"静态化数据模型为空!"),
     SERVER_ERROR(false,99999,"抱歉，系统繁忙，请稍后重试！");
 //    private static ImmutableMap<Integer, CommonCode> codes ;
     //操作是否成功
